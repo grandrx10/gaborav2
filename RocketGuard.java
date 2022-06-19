@@ -1,5 +1,12 @@
 import java.util.*;
 
+/**
+ * The rocket guard is a slow moving enemy that shoots rockets at you. It has a
+ * long attack cooldown
+ * 
+ * @author Richard, Raymond
+ * @version May 2022
+ */
 public class RocketGuard extends Enemy {
     RocketGuard(int x, int y, int length, int width, String picName) {
         super(x, y, length, width, picName);
@@ -13,6 +20,7 @@ public class RocketGuard extends Enemy {
         super.setMaxHp(30);
     }
 
+    // as an attack, it wills hoot a rocket at you
     public void attack(ArrayList<Entity> entities, ArrayList<Bullet> bullets) {
         bullets.add(new Rocket(super.getX() + super.getLength() / 2, super.getY() + super.getWidth() / 2,
                 super.getDestinationX() + randint(-10, 10), super.getDestinationY() + randint(-10, 10),
@@ -20,6 +28,7 @@ public class RocketGuard extends Enemy {
                 "rocket", this));
     }
 
+    // search for the player and update
     @Override
     public void update(ArrayList<Entity> entities, ArrayList<Bullet> bullets, SlowmoTracker slowmoTracker) {
         super.updateDestination(entities);

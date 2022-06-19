@@ -1,3 +1,9 @@
+/**
+ * SlowmoTrackerSound plays the sound of slowing down time
+ * 
+ * @author Richard, Raymond
+ * @version May 2022
+ */
 public class SlowmoTrackerSound {
     private Sound slowSound = new Sound("audio/slowSound.wav");
     private Sound clockSound = new Sound("audio/clockSound.wav");
@@ -6,6 +12,7 @@ public class SlowmoTrackerSound {
 
     }
 
+    // play the sound of slowing down time
     public void slowSound() {
         if (!slowSound.isRunning()) {
             slowSound.stop(); // stop the sound effect if still running
@@ -21,6 +28,7 @@ public class SlowmoTrackerSound {
         }
     }
 
+    // stop all of the audio when time resumes
     public void resumeTimeSound() {
         slowSound.stop(); // stop the sound effect if still running
         slowSound.flush(); // clear the buffer with audio data

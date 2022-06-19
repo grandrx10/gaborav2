@@ -1,6 +1,12 @@
-import javax.swing.*;
 import java.awt.*;
 import java.util.*;
+
+/**
+ * Rooms are rectangles that mark where walls are built
+ * 
+ * @author Richard, Raymond
+ * @version May 2022
+ */
 
 public class Room {
     private int x, y;
@@ -20,13 +26,14 @@ public class Room {
         this.width = 0;
     }
 
+    // draw a grey rectangle for the room
     public void draw(Graphics g, int xRange, int yRange) {
-
         g.setColor(Color.GRAY);
         g.fillRect((int) this.x - xRange, (int) this.y - yRange, this.length,
                 this.width);
     }
 
+    // check if the room overlaps any other rooms
     public boolean overlaps(ArrayList<Room> rooms) {
         for (int i = 0; i < rooms.size(); i++) {
             if (this != rooms.get(i) && rectRectDetect(rooms.get(i), this)) {
@@ -36,6 +43,7 @@ public class Room {
         return false;
     }
 
+    // check if 2 rectangles are overlapping (this is for rooms)
     public boolean rectRectDetect(Room rect, Room rect2) {
         double leftSide = rect.x;
         double rightSide = rect.x + rect.length;
@@ -46,10 +54,6 @@ public class Room {
             return true;
         }
         return false;
-    }
-
-    public static int randint(int min, int max) {
-        return (int) Math.floor(Math.random() * (max - min + 1) + min);
     }
 
     // getters

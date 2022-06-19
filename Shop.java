@@ -2,6 +2,12 @@ import java.awt.Graphics;
 import java.io.File;
 import java.util.*;
 
+/**
+ * Shop has items on sale that the player can purchase
+ * 
+ * @author Richard, Raymond
+ * @version May 2022
+ */
 public class Shop extends Wall {
     private ArrayList<Item> items;
 
@@ -13,7 +19,9 @@ public class Shop extends Wall {
         super.setType("Shop");
     }
 
+    // load in all of the items on sale
     public void loadShopItems(int numberOfItemsOnSale) {
+        // go into items.txt and find the number of unique items
         File shopFile = new File("");
         Scanner shopScanner = new Scanner("");
         try {
@@ -31,15 +39,20 @@ public class Shop extends Wall {
             }
         }
 
+        // load in the number of items the shop is selling
         for (int i = 0; i < numberOfItemsOnSale; i++) {
+            // get a random item
             int randomItem = randint(0, numberOfCustomItems - 1);
+            // load the item in
             shopScanner = loadItem("items.txt", randomItem);
+            // the x and y location of the item in the menu
             int x = 250 + i * 150;
             int y = 460;
             String itemName = shopScanner.next();
             int cost = shopScanner.nextInt();
             shopScanner.nextLine(); // get rid of the space between description and cost.
             String description = shopScanner.nextLine();
+            // add in the item itself
             if (itemName.equals("Boots")) {
                 items.add(new Boots(x, y, 100, 100, cost, description));
             } else if (itemName.equals("HealthPotion")) {
@@ -54,6 +67,7 @@ public class Shop extends Wall {
         }
     }
 
+    // draw the shop (sans undertale)
     @Override
     public void draw(Graphics g, int xRange, int yRange, SlowmoTracker slowmoTracker) {
         if (super.checkInRange(xRange, yRange)) {
@@ -64,6 +78,7 @@ public class Shop extends Wall {
 
     }
 
+    // open the shop when interacted with
     @Override
     public void interact(Entity interactor, Map map, ArrayList<Entity> entities, Music music) {
         if (interactor.getInteractingWith() == null) {
@@ -71,12 +86,12 @@ public class Shop extends Wall {
         } else {
             interactor.setInteractingWith(null);
         }
-
-        System.out.println(interactor.getInteractingWith());
     }
 
+    // update the shop itself
     @Override
     public void update(ArrayList<Entity> entities, ArrayList<Bullet> bullets, SlowmoTracker slowmoTracker) {
+        // when the player gets too far away, close the shop
         if (distance(getX() + getLength() / 2, getY() + getWidth() / 2,
                 entities.get(0).getX() + entities.get(0).getLength() / 2,
                 entities.get(0).getY() + entities.get(0).getWidth() / 2) > 200) {
@@ -85,6 +100,7 @@ public class Shop extends Wall {
         super.update(entities, bullets, slowmoTracker);
     }
 
+    // load in the item number in from the item file
     public Scanner loadItem(String fileName, int itemNumber) {
         File shopFile = new File("");
         Scanner shopScanner = new Scanner("");
@@ -104,6 +120,7 @@ public class Shop extends Wall {
         return shopScanner;
     }
 
+    // getters
     @Override
     public ArrayList<Item> getItems() {
         return this.items;

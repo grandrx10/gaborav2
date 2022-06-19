@@ -1,11 +1,16 @@
 import java.awt.Graphics;
-import java.awt.Color;
 import java.io.File;
-import java.util.*;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 // possible exceptions
 import java.io.IOException;
+
+/**
+ * Wall is a solid entity that blocks bullets and other entities
+ * 
+ * @author Richard, Raymond
+ * @version May 2022
+ */
 
 public class Wall extends Entity {
     private BufferedImage image;
@@ -16,6 +21,7 @@ public class Wall extends Entity {
         super.setTeam(-1);
     }
 
+    // draw the wall if it is in range
     @Override
     public void draw(Graphics g, int xRange, int yRange, SlowmoTracker slowmoTracker) {
         if (super.checkInRange(xRange, yRange)) {
@@ -28,6 +34,8 @@ public class Wall extends Entity {
 
     }
 
+    // load in the single image for the wall (walls only have 1 image, they are
+    // static)
     @Override
     public void loadImages() {
         if (!super.getPicName().equals("")) {
@@ -40,6 +48,7 @@ public class Wall extends Entity {
         }
     }
 
+    // getters
     public BufferedImage getImage() {
         return image;
     }

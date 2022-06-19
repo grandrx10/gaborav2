@@ -8,9 +8,9 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.sound.sampled.LineUnavailableException;
 
 /**
- * Demonstrates how to load from file and play music
+ * Music will load a random soundtrack and play it
  * 
- * @author ICS3U6
+ * @author Richard, Raymond
  * @version May 2022
  */
 public class Music {
@@ -36,28 +36,30 @@ public class Music {
     }
 
     // ------------------------------------------------------------------------------
+    // start the song
     public void start() {
         this.music.start();
     }
 
+    // loop the song
     public void loop() {
         this.music.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
+    // loop the song a specific number of times
     public void loop(int count) {
         this.music.loop(count); // loop the playback certain number of times
     }
 
+    // stop the song
     public void stop() {
         this.music.stop();
         this.music.flush();
         this.music.setFramePosition(0);
     }
 
+    // load a new song
     public void loadNewSong(String musicName) {
-        // String[] soundtracks = { "BreathOfASerpent.wav" };
-        // backgroundMusic = new Music("audio/soundtracks/" + soundtracks[randint(0,
-        // soundtracks.length - 1)]);
         try {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File(musicName));
             this.music = AudioSystem.getClip();
@@ -71,14 +73,16 @@ public class Music {
         }
     }
 
+    // load a random song
     public void loadRandomSong() {
+        // list of all soundtracks in the game
         String[] soundtracks = { "BreathOfASerpent.wav", "Ink.wav" };
-        // stop();
+        // select a random song and play it
         String randomSong = soundtracks[randint(0, soundtracks.length - 1)];
         loadNewSong("audio/soundtracks/" + randomSong);
-        System.out.println(randomSong);
     }
 
+    // give a random integer
     public int randint(int min, int max) {
         return (int) Math.floor(Math.random() * (max - min + 1) + min);
     }

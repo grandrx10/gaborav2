@@ -1,5 +1,12 @@
 import java.util.*;
 
+/**
+ * SwordGuard is an enemy that rushes at you and slashes at you
+ * 
+ * @author Richard, Raymond
+ * @version May 2022
+ */
+
 public class SwordGuard extends Enemy {
     SwordGuard(int x, int y, int length, int width, String picName) {
         super(x, y, length, width, picName);
@@ -13,6 +20,7 @@ public class SwordGuard extends Enemy {
         super.setMaxHp(30);
     }
 
+    // launch a slash attack
     public void attack(ArrayList<Entity> entities, ArrayList<Bullet> bullets) {
         bullets.add(new Slash(super.getX() + super.getLength() / 2, super.getY() + super.getWidth() / 2,
                 super.getDestinationX(), super.getDestinationY(),
@@ -20,6 +28,7 @@ public class SwordGuard extends Enemy {
                 "slash", this));
     }
 
+    // update and search for the player
     @Override
     public void update(ArrayList<Entity> entities, ArrayList<Bullet> bullets, SlowmoTracker slowmoTracker) {
         super.updateDestination(entities);
